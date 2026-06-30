@@ -4,6 +4,12 @@ import { LayoutDashboard, Utensils, ClipboardList, ShoppingCart, Search, Trash2,
 import { subscribeStudent, placeOrder as apiPlaceOrder, cancelOrder, addMessage } from '../../api';
 import DashboardLayout from '../../layouts/DashboardLayout';
 
+export const getImgUrl = (url) => {
+  if (!url) return '';
+  if (url.startsWith('/images/')) return import.meta.env.BASE_URL + url.slice(1);
+  return url;
+};
+
 export const isSubscribed = (user) => {
   if (!user?.hasSubscription || !user?.subscriptionDate) return false;
   const expiryDate = new Date(user.subscriptionDate);
@@ -19,7 +25,7 @@ const StudentSummary = ({ globalMenu, pastOrders, pendingOrders, mealTimeData, l
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1.5rem' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 200px), 1fr))', gap: '1.5rem' }}>
         <div className="dashboard-card" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '2rem', background: 'rgba(59, 130, 246, 0.05)', border: '1px solid rgba(59, 130, 246, 0.2)' }}>
           <h3 style={{ color: 'var(--text-muted)', fontSize: '1.1rem', marginBottom: '0.5rem' }}>Food Available</h3>
           <span style={{ fontSize: '3rem', fontWeight: 'bold', color: '#3b82f6', textShadow: '0 0 20px rgba(59,130,246,0.3)' }}>{menuCount}</span>
@@ -34,7 +40,7 @@ const StudentSummary = ({ globalMenu, pastOrders, pendingOrders, mealTimeData, l
         </div>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: '2rem' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 300px), 1fr))', gap: '2rem' }}>
         <div 
           className="dashboard-card" 
           style={{ 
@@ -206,7 +212,7 @@ const StudentMenu = ({ globalMenu, addToCart }) => {
           {filteredMenu.map(item => (
             <div key={item.id} className="food-card">
               <div className="food-img-container">
-                <img src={item.img} alt={item.name} className="food-img" />
+                <img src={getImgUrl(item.img)} alt={item.name} className="food-img" />
                 <span className="food-tag">{item.tag}</span>
               </div>
               <div className="food-details">
@@ -255,7 +261,7 @@ const StudentCart = ({ cart, placeOrder, clearCart, updateCartQuantity, removeFr
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginBottom: '2rem' }}>
             {cart.map((item, idx) => (
               <div key={idx} style={{ display: 'flex', alignItems: 'center', gap: '1.5rem', background: 'rgba(255, 255, 255, 0.05)', padding: '1rem', borderRadius: 'var(--radius-md)', border: '1px solid rgba(255,255,255,0.1)' }}>
-                <img src={item.img} alt={item.name} style={{ width: '80px', height: '80px', borderRadius: 'var(--radius-sm)', objectFit: 'cover' }} />
+                <img src={getImgUrl(item.img)} alt={item.name} style={{ width: '80px', height: '80px', borderRadius: 'var(--radius-sm)', objectFit: 'cover' }} />
                 <div style={{ flex: 1 }}>
                   <h3 style={{ margin: '0 0 0.25rem 0', fontSize: '1.1rem' }}>{item.name}</h3>
                   <p style={{ margin: 0, color: 'var(--text-muted)', fontSize: '0.875rem' }}>{item.tag}</p>

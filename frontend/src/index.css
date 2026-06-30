@@ -443,9 +443,9 @@ button {
 .dashboard-main {
   flex: 1;
   padding: 3rem;
-  background-color: rgba(0, 0, 0, 0.4);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
   min-height: 100vh;
 }
 
@@ -555,4 +555,52 @@ button {
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
   margin-top: 2rem;
   margin-bottom: 2rem;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .dashboard-layout {
+    flex-direction: column;
+  }
+  .dashboard-sidebar {
+    width: 100%;
+    height: auto;
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    border-right: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 1rem;
+    flex-direction: row;
+    align-items: center;
+  }
+  .sidebar-menu {
+    flex-direction: row;
+    overflow-x: auto;
+    gap: 0.5rem;
+    flex: 1;
+  }
+  .sidebar-item {
+    padding: 0.5rem;
+    justify-content: center !important;
+  }
+  .sidebar-item span {
+    display: none;
+  }
+  .dashboard-sidebar > div {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+    margin-left: 1rem;
+  }
+  .dashboard-main {
+    padding: 1rem;
+  }
+  .dashboard-card {
+    padding: 1.25rem;
+  }
+  .table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
 }
