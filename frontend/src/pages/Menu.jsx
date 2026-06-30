@@ -2,6 +2,12 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Search } from 'lucide-react';
 
+const getImgUrl = (url) => {
+  if (!url) return '';
+  if (url.startsWith('/images/')) return import.meta.env.BASE_URL + url.slice(1);
+  return url;
+};
+
 const Menu = ({ globalMenu = [] }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [mealTimeFilter, setMealTimeFilter] = useState('Morning');
@@ -65,7 +71,7 @@ const Menu = ({ globalMenu = [] }) => {
                     onClick={() => navigate('/login')}
                   >
                     <div className="food-img-container">
-                      <img src={item.img} alt={item.name} className="food-img" />
+                      <img src={getImgUrl(item.img)} alt={item.name} className="food-img" />
                       <span className="food-tag">{item.tag}</span>
                     </div>
                     <div className="food-details">

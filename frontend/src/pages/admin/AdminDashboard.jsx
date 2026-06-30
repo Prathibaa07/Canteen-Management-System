@@ -5,6 +5,12 @@ import DashboardLayout from '../../layouts/DashboardLayout';
 import { cancelOrder as adminDeleteOrder, markOrderReady, markOrderReceived, addNotification, deleteMenu, updateMenu, addMenu } from '../../api';
 import { DUMMY_MENU } from '../../data/mockData';
 
+const getImgUrl = (url) => {
+  if (!url) return '';
+  if (url.startsWith('/images/')) return import.meta.env.BASE_URL + url.slice(1);
+  return url;
+};
+
 const AdminMenu = ({ globalMenu, setGlobalMenu }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [isUpdating, setIsUpdating] = useState(false);
@@ -98,7 +104,7 @@ const AdminMenu = ({ globalMenu, setGlobalMenu }) => {
               {editingItem?.img && (
                 <div style={{ marginTop: '1rem' }}>
                   <p style={{ fontSize: '0.875rem', color: 'var(--text-muted)', marginBottom: '0.5rem' }}>Image Preview:</p>
-                  <img src={editingItem.img} alt="Preview" style={{ width: '120px', height: '80px', objectFit: 'cover', borderRadius: 'var(--radius-md)', border: '1px solid rgba(255,255,255,0.2)' }} />
+                  <img src={getImgUrl(editingItem.img)} alt="Preview" style={{ width: '120px', height: '80px', objectFit: 'cover', borderRadius: 'var(--radius-md)', border: '1px solid rgba(255,255,255,0.2)' }} />
                 </div>
               )}
             </div>
@@ -161,7 +167,7 @@ const AdminMenu = ({ globalMenu, setGlobalMenu }) => {
         {filteredMenu.map(item => (
           <div key={item.id} className="food-card">
             <div className="food-img-container">
-              <img src={item.img} alt={item.name} className="food-img" />
+              <img src={getImgUrl(item.img)} alt={item.name} className="food-img" />
               <span className="food-tag">{item.category || 'Uncategorized'}</span>
             </div>
             <div className="food-details">
@@ -353,7 +359,7 @@ const UserLoginList = ({ globalUsers, globalOrders }) => {
           <button className="btn btn-outline" onClick={() => setSelectedUser(null)}>Back to List</button>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1.5rem', marginBottom: '2rem' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 200px), 1fr))', gap: '1.5rem', marginBottom: '2rem' }}>
           <div style={{ padding: '1.5rem', background: selectedUser.hasSubscription ? 'rgba(16, 185, 129, 0.05)' : 'rgba(245, 158, 11, 0.05)', border: `1px solid ${selectedUser.hasSubscription ? 'rgba(16, 185, 129, 0.2)' : 'rgba(245, 158, 11, 0.2)'}`, borderRadius: 'var(--radius-md)' }}>
             <h3 style={{ color: 'var(--text-muted)', fontSize: '0.875rem', marginBottom: '0.5rem' }}>Subscription Status</h3>
             <span className="status-badge" style={{ backgroundColor: selectedUser.hasSubscription ? 'rgba(16, 185, 129, 0.2)' : 'rgba(245, 158, 11, 0.2)', color: selectedUser.hasSubscription ? '#10b981' : '#f59e0b', fontSize: '1rem', padding: '0.5rem 1rem' }}>
@@ -500,7 +506,7 @@ const AdminAddFood = ({ globalMenu, setGlobalMenu }) => {
             {newItem.img && (
               <div style={{ marginTop: '1rem' }}>
                 <p style={{ fontSize: '0.875rem', color: 'var(--text-muted)', marginBottom: '0.5rem' }}>Image Preview:</p>
-                <img src={newItem.img} alt="Preview" style={{ width: '120px', height: '80px', objectFit: 'cover', borderRadius: 'var(--radius-md)', border: '1px solid rgba(255,255,255,0.2)' }} />
+                <img src={getImgUrl(newItem.img)} alt="Preview" style={{ width: '120px', height: '80px', objectFit: 'cover', borderRadius: 'var(--radius-md)', border: '1px solid rgba(255,255,255,0.2)' }} />
               </div>
             )}
           </div>
@@ -537,7 +543,7 @@ const DashboardHome = ({ globalOrders, globalUsers, globalMenu }) => {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1.5rem' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 200px), 1fr))', gap: '1.5rem' }}>
         <div className="dashboard-card" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '2rem', background: 'rgba(59, 130, 246, 0.05)', border: '1px solid rgba(59, 130, 246, 0.2)' }}>
           <h3 style={{ color: 'var(--text-muted)', fontSize: '1.1rem', marginBottom: '0.5rem' }}>Total Food Count</h3>
           <span style={{ fontSize: '3rem', fontWeight: 'bold', color: '#3b82f6', textShadow: '0 0 20px rgba(59,130,246,0.3)' }}>{globalMenu.length}</span>
@@ -556,7 +562,7 @@ const DashboardHome = ({ globalOrders, globalUsers, globalMenu }) => {
         </div>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: '2rem' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 300px), 1fr))', gap: '2rem' }}>
 
         <div className="dashboard-card">
           <h3 style={{ fontSize: '1.25rem', marginBottom: '1.5rem', borderBottom: '1px solid rgba(255,255,255,0.1)', paddingBottom: '0.5rem' }}>Recent Orders</h3>

@@ -35,7 +35,7 @@ const Contact = ({ globalMessages, setGlobalMessages }) => {
               <p className="page-subtitle">Have questions or feedback? We'd love to hear from you.</p>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '4rem', marginTop: '2rem' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 300px), 1fr))', gap: '4rem', marginTop: '2rem' }}>
               <div>
                 <h2 style={{ marginBottom: '1.5rem' }}>Get in Touch</h2>
 

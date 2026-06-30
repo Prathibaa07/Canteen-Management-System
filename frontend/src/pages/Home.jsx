@@ -28,7 +28,7 @@ const Home = () => {
           <p className="page-subtitle">We bring the best flavors to campus with an unmatched ordering experience.</p>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem', marginTop: '2rem' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 300px), 1fr))', gap: '2rem', marginTop: '2rem' }}>
           <div style={{ textAlign: 'center', padding: '2rem' }}>
             <div style={{ display: 'inline-flex', padding: '1rem', backgroundColor: 'rgba(255, 94, 58, 0.1)', color: 'var(--primary)', borderRadius: '50%', marginBottom: '1.5rem' }}>
               <Utensils size={32} />

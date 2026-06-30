@@ -30,7 +30,7 @@ const Login = ({ globalUsers, setGlobalUsers, setLoggedInUser }) => {
         if (username && password && name && email) {
           try {
             const newUser = { name, email, username, password, role: 'student' };
-            const response = await fetch('http://localhost:8000/api/users/', {
+            const response = await fetch(`${import.meta.env.VITE_API_BASE_URL || 'https://canteen-management-system-ids8.onrender.com/api'}/users/`, {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify(newUser)
@@ -55,7 +55,7 @@ const Login = ({ globalUsers, setGlobalUsers, setLoggedInUser }) => {
       } else {
         if (username && password) {
           try {
-            const response = await fetch('http://localhost:8000/api/student/login/', {
+            const response = await fetch(`${import.meta.env.VITE_API_BASE_URL || 'https://canteen-management-system-ids8.onrender.com/api'}/student/login/`, {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({ username, password })
